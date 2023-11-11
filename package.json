@@ -1,0 +1,16 @@
+{
+  "dependencies": {
+    "express": "^4.18.2",
+    "sqlite3": "^5.1.6"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "name": "ecs235a",
+  "description": "project for checking the use of an input validation wrapper",
+  "version": "1.0.0",
+  "main": "server.js",
+  "devDependencies": {},
+  "author": "",
+  "license": "ISC"
+}
