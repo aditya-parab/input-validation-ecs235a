@@ -16,5 +16,38 @@
     <br>
     <input type="submit" value="Login">
   </form>
+
+  <script>
+    function validateForm(event) {
+        // Prevent the form from submitting by default
+        event.preventDefault();
+
+        // Get form elements
+        var nameInput = document.getElementById('name');
+        var emailInput = document.getElementById('email');
+        var nameError = document.getElementById('nameError');
+        var emailError = document.getElementById('emailError');
+
+        // Reset error messages
+        nameError.innerHTML = '';
+        emailError.innerHTML = '';
+
+        // Validate name
+        if (nameInput.value.trim() === '') {
+            nameError.innerHTML = 'Name is required';
+            return false;
+        }
+
+        // Validate email
+        var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(emailInput.value)) {
+            emailError.innerHTML = 'Invalid email address';
+            return false;
+        }
+
+        // If validation passes, you can submit the form or perform other actions
+        alert('Form submitted successfully!');
+    }
+</script>
 </body>
 </html>
