@@ -10,7 +10,6 @@
   "description": "project for checking the use of an input validation wrapper",
   "version": "1.0.0",
   "main": "server.js",
-  "devDependencies": {},
   "author": "",
   "license": "ISC"
 }
