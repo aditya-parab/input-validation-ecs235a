@@ -16,17 +16,20 @@ db.serialize(() => {
   db.run('INSERT INTO users (username, password) VALUES ("admin", "admin123")');
 });
 
-// Vulnerable login route
+// Secure login route using prepared statements
 app.post('/login', (req, res) => {
   const { username, password } = req.body;
 
-  // Vulnerable SQL query (SQL Injection)
-  db.all(`SELECT * FROM users WHERE username = '${username}' AND password = '${password}'`, (err, rows) => {
+  // Secure SQL query using prepared statements
+  const stmt = db.prepare('SELECT * FROM users WHERE username = ? AND password = ?');
+  stmt.get(username, password, (err, row) => {
+    stmt.finalize(); // Finalize the prepared statement
+
     if (err) {
       return console.error(err.message);
     }
 
-    if (rows.length > 0) {
+    if (row) {
       res.send('Login successful');
     } else {
       res.send('Login failed');
