@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const sqlite3 = require('sqlite3').verbose();
 
 const app = express();
-const port = 3000;
+const port = 300;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -16,20 +16,17 @@ db.serialize(() => {
   db.run('INSERT INTO users (username, password) VALUES ("admin", "admin123")');
 });
 
-// Secure login route using prepared statements
+// Vulnerable login route
 app.post('/login', (req, res) => {
   const { username, password } = req.body;
 
-  // Secure SQL query using prepared statements
-  const stmt = db.prepare('SELECT * FROM users WHERE username = ? AND password = ?');
-  stmt.get(username, password, (err, row) => {
-    stmt.finalize(); // Finalize the prepared statement
-
+  // Vulnerable SQL query (SQL Injection)
+  db.all(`SELECT * FROM users WHERE username = '${username}' AND password = '${password}'`, (err, rows) => {
     if (err) {
       return console.error(err.message);
     }
 
-    if (row) {
+    if (rows.length > 0) {
       res.send('Login successful');
     } else {
       res.send('Login failed');
