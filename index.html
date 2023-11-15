@@ -1,11 +1,13 @@
-<!-- index.html -->
+<!-- index.html   adp -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Vulnerable Web App</title>
 </head>
+
 <body>
   <form action="/login" method="post" onsubmit="return validateForm(event)">
     <label for="username">Username:</label>
@@ -46,20 +48,21 @@
         },
         body: `username=${username}&password=${password}`,
       })
-      .then(response => response.text())
-      .then(result => {
-        if (result === 'Login successful') {
-          // If validation passes, you can submit the form or perform other actions
-          alert('Form submitted successfully!');
-        } else {
-          // Display error message if credentials are incorrect
-          usernameError.innerHTML = 'Invalid username or password';
-        }
-      })
-      .catch(error => console.error('Error:', error));
+        .then(response => response.text())
+        .then(result => {
+          if (result === 'Login successful') {
+            // If validation passes, you can submit the form or perform other actions
+            alert('Form submitted successfully!');
+          } else {
+            // Display error message if credentials are incorrect
+            usernameError.innerHTML = 'Invalid username or password';
+          }
+        })
+        .catch(error => console.error('Error:', error));
 
       return false; // Prevent the form from submitting
     }
   </script>
 </body>
+
 </html>
