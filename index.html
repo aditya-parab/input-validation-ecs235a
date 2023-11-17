@@ -1,44 +1,88 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vulnerable Web App</title>
+  <title>Secure Login</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    form {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 16px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    input[type="submit"] {
+      background-color: #4caf50;
+      color: #fff;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #45a049;
+    }
+
+    .error {
+      color: red;
+      margin-top: 5px;
+    }
+  </style>
 </head>
 <body>
   <form action="/login" method="post" onsubmit="return validateForm(event)">
     <label for="username">Username:</label>
     <input type="text" id="username" name="username" required>
-    <div id="usernameError" style="color: red;"></div> <!-- Added error message element -->
-    <br>
+    <div id="usernameError" class="error"></div>
+    
     <label for="password">Password:</label>
     <input type="password" id="password" name="password" required>
-    <div id="passwordError" style="color: red;"></div> <!-- Added error message element -->
-    <br>
+    <div id="passwordError" class="error"></div>
+    
     <input type="submit" value="Login">
   </form>
 
   <script>
     function validateForm(event) {
-      // Prevent the form from submitting by default
       event.preventDefault();
 
-      // Get form elements
       var usernameInput = document.getElementById('username');
       var passwordInput = document.getElementById('password');
       var usernameError = document.getElementById('usernameError');
       var passwordError = document.getElementById('passwordError');
 
-      // Reset error messages
       usernameError.innerHTML = '';
       passwordError.innerHTML = '';
 
-      // Simulate server-side validation
       const username = usernameInput.value.trim();
       const password = passwordInput.value.trim();
 
-      // Query the in-memory database to check if credentials are valid
       fetch('/login', {
         method: 'POST',
         headers: {
@@ -49,16 +93,14 @@
       .then(response => response.text())
       .then(result => {
         if (result === 'Login successful') {
-          // If validation passes, you can submit the form or perform other actions
           alert('Form submitted successfully!');
         } else {
-          // Display error message if credentials are incorrect
           usernameError.innerHTML = 'Invalid username or password';
         }
       })
       .catch(error => console.error('Error:', error));
 
-      return false; // Prevent the form from submitting
+      return false;
     }
   </script>
 </body>
