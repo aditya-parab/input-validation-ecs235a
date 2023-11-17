@@ -37,6 +37,17 @@ app.post('/login', (req, res) => {
   });
 });
 
+// Handle dumpdata route to simulate an attacker trying to fetch data
+app.get('/dumpdata', (req, res) => {
+  // Simulate fetching all data from the internal database (for educational purposes only)
+  db.all('SELECT * FROM users', (err, rows) => {
+    if (err) {
+      return res.status(500).json({ error: err.message });
+    }
+    res.json({ data: rows });
+  });
+});
+
 // Serve static files (e.g., index.html) from the root path
 app.use(express.static(__dirname));
 
