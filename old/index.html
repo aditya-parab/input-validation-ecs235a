@@ -7,59 +7,14 @@
   <title>Vulnerable Web App</title>
 </head>
 <body>
-  <form action="/login" method="post" onsubmit="return validateForm(event)">
+  <form action="/login" method="post">
     <label for="username">Username:</label>
-    <input type="text" id="username" name="username" value='<script>alert("XSS Attack");</script>' required>
-    <div id="usernameError" style="color: red;"></div> <!-- Added error message element -->
+    <input type="text" id="username" name="username" required>
     <br>
     <label for="password">Password:</label>
     <input type="password" id="password" name="password" required>
-    <div id="passwordError" style="color: red;"></div> <!-- Added error message element -->
     <br>
     <input type="submit" value="Login">
   </form>
-
-  <script>
-    function validateForm(event) {
-      // Prevent the form from submitting by default
-      event.preventDefault();
-
-      // Get form elements
-      var usernameInput = document.getElementById('username');
-      var passwordInput = document.getElementById('password');
-      var usernameError = document.getElementById('usernameError');
-      var passwordError = document.getElementById('passwordError');
-
-      // Reset error messages
-      usernameError.innerHTML = '';
-      passwordError.innerHTML = '';
-
-      // Simulate server-side validation
-      const username = usernameInput.value.trim();
-      const password = passwordInput.value.trim();
-
-      // Query the in-memory database to check if credentials are valid
-      fetch('/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: `username=${username}&password=${password}`,
-      })
-      .then(response => response.text())
-      .then(result => {
-        if (result === 'Login successful') {
-          // If validation passes, you can submit the form or perform other actions
-          alert('Form submitted successfully!');
-        } else {
-          // Display error message if credentials are incorrect
-          usernameError.innerHTML = 'Invalid username or password';
-        }
-      })
-      .catch(error => console.error('Error:', error));
-
-      return false; // Prevent the form from submitting
-    }
-  </script>
 </body>
 </html>
