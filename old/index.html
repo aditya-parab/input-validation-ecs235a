@@ -9,7 +9,7 @@
 <body>
   <form action="/login" method="post" onsubmit="return validateForm(event)">
     <label for="username">Username:</label>
-    <input type="text" id="username" name="username" value='<script>alert("XSS Attack");</script>' required>
+    <input type="text" id="username" name="username" required>
     <div id="usernameError" style="color: red;"></div> <!-- Added error message element -->
     <br>
     <label for="password">Password:</label>
