@@ -16,8 +16,23 @@ db.serialize(() => {
   db.run('INSERT INTO users (username, password) VALUES ("admin", "admin123")');
 });
 
-// Secure login route using prepared statements
-app.post('/login', (req, res) => {
+// Input validation middleware
+const validateInput = (req, res, next) => {
+  const { username, password } = req.body;
+
+  // Basic input validation
+  if (!username || !password) {
+    return res.status(400).send('Username and password are required.');
+  }
+
+  // You can add more advanced validation here if needed
+
+  // If input is valid, move to the next middleware or route handler
+  next();
+};
+
+// Secure login route using input validation middleware and prepared statements
+app.post('/login', validateInput, (req, res) => {
   const { username, password } = req.body;
 
   // Secure SQL query using prepared statements
