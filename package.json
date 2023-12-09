@@ -1,15 +1,24 @@
 {
+  "name": "input-validation-ecs235a",
+  "version": "1.0.0",
+  "description": "In today's interconnected world, we rely on web applications for a multitude of tasks like online banking, social networking, etc. However, this increased reliance on web applications has unfortunately turned them into attractive targets for individuals with malicious intent who aim to exploit weaknesses for various nefarious purposes. These objectives can range from compromising data security and stealing identities to causing disruptions in services. We intend for this report to document the common vulnerabilities that web applications may possess and how to mitigate these.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aditya-parab/input-validation-ecs235a.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aditya-parab/input-validation-ecs235a/issues"
+  },
+  "homepage": "https://github.com/aditya-parab/input-validation-ecs235a#readme",
   "dependencies": {
     "express": "^4.18.2",
     "sqlite3": "^5.1.6"
-  },
-  "scripts": {
-    "start": "node server.js"
-  },
-  "name": "ecs235a",
-  "description": "project for checking the use of an input validation wrapper",
-  "version": "1.0.0",
-  "main": "server.js",
-  "author": "",
-  "license": "ISC"
+  }
 }
