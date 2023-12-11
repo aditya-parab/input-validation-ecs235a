@@ -40,7 +40,21 @@ app.post('/login', (req, res) => {
   // Extract the username and password
   const username = params.get('username');
   const password = params.get('password');
-  res.send(username);
+  const address = params.get('address');
+
+  // Vulnerable SQL query (SQL Injection)
+  db.all(`SELECT * FROM users WHERE username = '${username}' AND password = '${password}'`, (err, rows) => {
+    if (err) {
+      return console.error(err.message);
+    }
+
+    if (rows.length > 0) {
+      res.send(`Login successful \nUsername: ${username} and Address: ${address}`);
+    } else {
+      res.send('Login failed');
+    }
+  });
+  //res.send(username);
 });
 
 // Handle dumpdata route to simulate an attacker trying to fetch data
@@ -52,6 +66,11 @@ app.get('/dumpdata', (req, res) => {
     }
     res.json({ data: rows });
   });
+});
+
+app.get('/kshitij', (req, res) => {
+  console.log(req.query.username);
+  res.json({data:  req.query.username});
 });
 
 // Serve static files (e.g., index.html) from the root path
