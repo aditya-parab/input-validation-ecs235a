@@ -16,50 +16,55 @@
     <input type="password" id="password" name="password" required>
     <div id="passwordError" style="color: red;"></div> <!-- Added error message element -->
     <br>
+    <label for="username">Address:</label>
+    <input type="text" id="address" name="address" required>
+    <br>
     <input type="submit" value="Login">
+    <p id="result"></p>
   </form>
 
-  <script>
-    function validateForm(event) {
-      // Prevent the form from submitting by default
-      event.preventDefault();
 
-      // Get form elements
-      var usernameInput = document.getElementById('username');
-      var passwordInput = document.getElementById('password');
-      var usernameError = document.getElementById('usernameError');
-      var passwordError = document.getElementById('passwordError');
+<script>
+  function validateForm(event) {
+    // Prevent the form from submitting by default
+    event.preventDefault();
 
-      // Reset error messages
-      usernameError.innerHTML = '';
-      passwordError.innerHTML = '';
+    // Get form elements
+    var usernameInput = document.getElementById('username');
+    var passwordInput = document.getElementById('password');
+    var usernameError = document.getElementById('usernameError');
+    var passwordError = document.getElementById('passwordError');
+    var addressInput = document.getElementById('address');
 
-      // Simulate server-side validation
-      const username = usernameInput.value.trim();
-      const password = passwordInput.value.trim();
+    // Reset error messages
+    usernameError.innerHTML = '';
+    passwordError.innerHTML = '';
 
-      // Query the in-memory database to check if credentials are valid
-      fetch('/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: `username=${username}&password=${password}`,
-      })
-      .then(response => response.text())
-      .then(result => {
-        if (result === 'Login successful') {
-          // If validation passes, you can submit the form or perform other actions
-          alert('Form submitted successfully!');
-        } else {
-          // Display error message if credentials are incorrect
-          usernameError.innerHTML = 'Invalid username or password';
-        }
-      })
-      .catch(error => console.error('Error:', error));
+    // Simulate server-side validation
+    //const username = '<img src=x onerror="alert(\'XSS Attack!\')">'; // Simulate XSS payload
+    //const password = passwordInput.value.trim();
 
-      return false; // Prevent the form from submitting
-    }
-  </script>
+    const username = usernameInput.value;
+    const password = passwordInput.value;
+    const address = addressInput.value;
+
+    // Query the in-memory database to check if credentials are valid
+    fetch('/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: `username=${username}&password=${password}&address=${address}`,
+    })
+    .then(response => response.text())
+    .then(result => {
+      document.getElementById("result").innerHTML = result;
+    })
+    .catch(error => console.error('Error:', error));
+
+    return false; // Prevent the form from submitting
+  }
+</script>
+
 </body>
 </html>
