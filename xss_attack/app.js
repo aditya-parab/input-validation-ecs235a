@@ -26,13 +26,18 @@ function parseInsecureData(rawData) {
 
 const db = new sqlite3.Database(':memory:');
 
-// Initialize the database with a vulnerable table
+// Initialize the database with a vulnerable table for username and password
 db.serialize(() => {
   db.run('CREATE TABLE users (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, password TEXT)');
   db.run('INSERT INTO users (username, password) VALUES ("admin", "admin123")');
 });
 
-// Vulnerable login route
+// Initialize the database with a vulnerable table for university attended
+db.serialize(() => {
+  db.run('CREATE TABLE universities (id INTEGER PRIMARY KEY AUTOINCREMENT, university TEXT)');
+});
+
+// Vulnerable login route for username and password
 app.post('/login', (req, res) => {
   // Use URLSearchParams to parse the query string
   const params = new URLSearchParams(req.body);
@@ -40,17 +45,41 @@ app.post('/login', (req, res) => {
   // Extract the username and password
   const username = params.get('username');
   const password = params.get('password');
-  res.send(username);
+  res.send(`Username: ${username}, Password: ${password}`);
+});
+
+// Vulnerable route for university attended (vulnerable to SQL injection)
+app.post('/university', (req, res) => {
+  // Use URLSearchParams to parse the query string
+  const params = new URLSearchParams(req.body);
+
+  // Extract the university attended
+  const university = params.get('university');
+
+  // Vulnerable SQL query (for educational purposes only, do not use in real-world applications)
+  db.run(`INSERT INTO universities (university) VALUES ('${university}')`, (err) => {
+    if (err) {
+      return res.status(500).json({ error: err.message });
+    }
+    res.send('University data added successfully');
+  });
 });
 
 // Handle dumpdata route to simulate an attacker trying to fetch data
 app.get('/dumpdata', (req, res) => {
-  // Simulate fetching all data from the internal database 
-  db.all('SELECT * FROM users', (err, rows) => {
+  // Simulate fetching all data from both vulnerable tables
+  db.all('SELECT * FROM users', (err, userRows) => {
     if (err) {
       return res.status(500).json({ error: err.message });
     }
-    res.json({ data: rows });
+
+    db.all('SELECT * FROM universities', (err, universityRows) => {
+      if (err) {
+        return res.status(500).json({ error: err.message });
+      }
+
+      res.json({ users: userRows, universities: universityRows });
+    });
   });
 });
 
