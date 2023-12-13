@@ -1,4 +1,3 @@
-// app.js
 const express = require('express');
 const sqlite3 = require('sqlite3').verbose();
 const { body, validationResult } = require('express-validator');
@@ -15,7 +14,7 @@ const sanitizeInput = [
   body('address').customSanitizer((value) => sanitizeHtml(value, { allowedTags: [], allowedAttributes: {} })),
 ];
 
-// Custom insecure parser (for educational purposes only)
+// Custom insecure parser 
 app.use((req, res, next) => {
   let rawData = '';
   req.on('data', (chunk) => {
@@ -28,7 +27,7 @@ app.use((req, res, next) => {
   });
 });
 
-// Function to parse insecure data (for educational purposes only)
+// Function to parse insecure data 
 function parseInsecureData(rawData) {
   // Insecure parsing logic (replace with your vulnerable parsing logic)
   return rawData;

@@ -1,13 +1,80 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vulnerable Web App</title>
-</head>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SafeHaven - It Is!</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap">
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(to right, #FFD700, #FFA500);
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #333;
+      }
+  
+      form {
+        background-color: rgba(255, 255, 255, 0.9);
+        padding: 30px;
+        border-radius: 10px;
+        text-align: center;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 300px;
+      }
+  
+      h1 {
+        color: #FF6B6B;
+        font-size: 36px;
+        margin-bottom: 20px;
+      }
+  
+      label {
+        display: block;
+        margin-bottom: 10px;
+        color: #555;
+        font-size: 18px;
+        font-weight: bold;
+      }
+  
+      input {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+        font-size: 16px;
+      }
+  
+      input[type="submit"] {
+        background-color: #FF6B6B;
+        color: white;
+        cursor: pointer;
+        border: none;
+        border-radius: 5px;
+        padding: 12px;
+        font-size: 16px;
+      }
+  
+      input[type="submit"]:hover {
+        background-color: #FF5252;
+      }
+  
+      #result {
+        margin-top: 20px;
+        font-size: 16px;
+        color: #333;
+      }
+    </style>
+  </head>
 <body>
   <form action="/login" method="post" onsubmit="return validateForm(event)">
+    <h1>SafeHaven-It Is!</h1>
     <label for="username">Username:</label>
     <input type="text" id="username" name="username" required>
     <div id="usernameError" style="color: red;"></div> <!-- Added error message element -->

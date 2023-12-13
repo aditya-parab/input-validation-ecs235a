@@ -1,11 +1,10 @@
-// app.js
 const express = require('express');
 const sqlite3 = require('sqlite3').verbose();
 
 const app = express();
 const port = 3001;
 
-// Custom insecure parser (for educational purposes only)
+// Custom insecure parser 
 app.use((req, res, next) => {
   let rawData = '';
   req.on('data', chunk => {
@@ -18,7 +17,7 @@ app.use((req, res, next) => {
   });
 });
 
-// Function to parse insecure data (for educational purposes only)
+// Function to parse insecure data 
 function parseInsecureData(rawData) {
   // Insecure parsing logic (replace with your vulnerable parsing logic)
   return rawData;
@@ -68,6 +67,7 @@ app.get('/dumpdata', (req, res) => {
   });
 });
 
+//Trying an API call and limiting it 
 app.get('/kshitij', (req, res) => {
   console.log(req.query.username);
   res.json({data:  req.query.username});
