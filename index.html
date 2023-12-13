@@ -77,11 +77,11 @@
     <h1>SafeHaven-It Is!</h1>
     <label for="username">Username:</label>
     <input type="text" id="username" name="username" required>
-    <div id="usernameError" style="color: red;"></div> <!-- Added error message element -->
+    <div id="usernameError" style="color: red;"></div> 
     <br>
     <label for="password">Password:</label>
     <input type="password" id="password" name="password" required>
-    <div id="passwordError" style="color: red;"></div> <!-- Added error message element -->
+    <div id="passwordError" style="color: red;"></div>
     <br>
     <label for="username">Address:</label>
     <input type="text" id="address" name="address" required>
@@ -92,17 +92,17 @@
 
   <script>
     function validateForm(event) {
-      // Prevent the form from submitting by default
+      
       event.preventDefault();
 
-      // Get form elements
+      
       var usernameInput = document.getElementById('username');
       var passwordInput = document.getElementById('password');
       var addressInput = document.getElementById('address');
       var usernameError = document.getElementById('usernameError');
       var passwordError = document.getElementById('passwordError');
 
-      // Reset error messages
+      
       usernameError.innerHTML = '';
       passwordError.innerHTML = '';
 
@@ -123,7 +123,7 @@
       })
       .catch(error => console.error('Error:', error));
 
-      return false; // Prevent the form from submitting
+      return false; 
     }
   </script>
 </body>
